@@ -24,7 +24,7 @@ def change_24_update():
         change24_value.config(text='___', fg='black')
 
 
-def change_last():
+def change_last_update():
     if crypto_base and previous_crypto_base:
         item = crypto_list.get()
         base = crypto[item]
@@ -52,12 +52,12 @@ def target_field_update(event=None):
             rate = crypto_base[base]['usd']
             target_field.config(text=f'{item} = {rate:>10.2f} USD')
             change_24_update()
-            change_last()
+            change_last_update()
         except KeyError:
             target_field.config(text=f'{'___'} = {'_' * 7}.00 USD')
             mb.showerror('Ошибка', f'Валюта {item} отсутствует в ответе API')
             change_24_update()
-            change_last()
+            change_last_update()
     else:
         target_field.config(text='Ошибка при загрузке курсов криптовалют')
 
@@ -84,7 +84,7 @@ def refresh_rates():
 
         target_field_update()
         change_24_update()
-        change_last()
+        change_last_update()
 
     except Exception as e:
         mb.showerror('Ошибка', f'Ошибка загрузки курсов {e}')
@@ -159,7 +159,6 @@ change_label.grid(row=0, column=0, padx=(10, 0), pady=(5, 5), sticky='w')
 
 change24_value = Label(frame4, text='0.00%', bg='lightgray', font=('Verdana', 10), width=8)
 change24_value.grid(row=0, column=2, sticky='e')
-
 
 last_change_label = Label(frame4, text='Изменение курса c предыдущего запроса', bg='lightgray', font=('Verdana', 10))
 last_change_label.grid(row=1, column=0, padx=(10, 0), pady=(5, 10), sticky='w')
